@@ -1,0 +1,34 @@
+# Python compiled files :
+*.pyc
+
+# Emacs Flymake temporary files :
+*_flymake.*
+
+# Emacs backup files :
+\#*\#
+*~
+._*
+.#*
+
+# Vim tmp and recup files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+
+#
+.DS_Store
+
+# Deployment logs :
+/logs/
+
+# object files :
+*.o
+
+# Doc compile
+/doc/www/
+/doc/index.html
+
+# .map sass files
+*.css.map
