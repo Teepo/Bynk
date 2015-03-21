@@ -1,0 +1,21 @@
+.box, section {
+  margin-top: 35px; }
+  .box._nofirst, section._nofirst {
+    margin-top: 35px !important; }
+  .box._nom header, .box._nom .header, section._nom header, section._nom .header {
+    margin-bottom: 0; }
+  .box:first-child, section:first-child {
+    margin-top: 0px; }
+  .box .header, .box header, section .header, section header {
+    margin-bottom: 20px;
+    display: block;
+    display: inline-block\9; }
+    .box .header h1, .box .header h2, .box .header h3, .box .header h4, .box .header h5, .box .header .h2, .box header h1, .box header h2, .box header h3, .box header h4, .box header h5, .box header .h2, section .header h1, section .header h2, section .header h3, section .header h4, section .header h5, section .header .h2, section header h1, section header h2, section header h3, section header h4, section header h5, section header .h2 {
+      color: black; }
+    .box .header small, .box header small, section .header small, section header small {
+      font-family: Georgia;
+      font-style: italic;
+      font-size: 16px;
+      color: #111; }
+
+/*# sourceMappingURL=display.box.conf.css.map */

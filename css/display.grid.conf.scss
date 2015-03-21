@@ -1,0 +1,108 @@
+.col {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 30px 30px 0 0;
+    margin: 0 !important;
+    vertical-align: top;
+    position: relative;
+    z-index: 1;
+    @include rad(3);
+    text-align: left;
+    width: 100%;
+    &._sha {
+        > .inner {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+        }
+        > .header {
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.10);
+        }
+    }
+    &._nop {
+        padding: 0;
+        > .inner {
+            padding: 0;
+        }
+    }
+    &._nov {
+        padding: 0;
+        > .inner {
+            padding: 0 30px 0 0;
+        }
+    }
+    > .inner {
+        padding: 15px;
+    }
+    &._nor {
+        @include rad(0);
+    }
+    > .inner {
+        background-color: #fff;
+        padding: 15px;
+        position: relative;
+        border-radius: 0 0 3px 3px;
+        > .col {
+            padding-top: 0;
+        }
+    }
+    > .header {
+        background: #fff;
+        padding: 10px 15px 0 15px;
+        margin: 0 !important;
+        border-radius: 3px 3px 0 0 ;
+        h2 {
+            font-size: 19px !important;
+        }
+    }
+}
+
+@mixin make-columns($columns: 12, $type: 'm')
+{
+    $i: 1;
+    @while $columns >= $i
+    {
+        .col-#{$type}-#{$i} {
+            width: percentage($i / $columns) !important;
+        }
+
+        $i: $i + 1;
+    }
+}
+
+@mixin make-columns-offset($columns, $type: 'm')
+{
+    $i: 1;
+    @while $columns >= $i
+    {
+        .col-#{$type}-offset-#{$i} {
+            margin-left: percentage($i / $columns) !important;
+        }
+
+        $i: $i + 1;
+    }
+}
+
+@mixin make-columns-gutter($gutter)
+{
+    .col {
+        &.g-#{$gutter} {
+            > .inner {
+                padding: $gutter + px;
+            }
+            &._nov {
+                padding: 0;
+                > .inner {
+                    padding: 0 $gutter + px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 1024px) {
+    @include make-columns(6, 'xs');
+}
+
+@media screen and (min-width: 1025px) {
+    @include make-columns(12);
+    @include make-columns-gutter(5);
+}

@@ -1,0 +1,201 @@
+button, .button {
+    @include smooth();
+    margin: 0;
+    padding: 12px 15px 10px;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 14px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: normal;
+    font-family: OswaldBold;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    background-color: $color;
+    border: 0;
+    @include rad(2);
+    outline: none;
+    &:hover, &:focus {
+        background-color: lighten($color, 10%);
+        text-decoration: none;
+        color: white;
+    }
+    &._arrow {
+        &:after {
+            content: '';
+            @include arrow(10px, 5px, up, $color);
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            margin-left: -5px;
+            @include transition(0.2s);
+        }
+        &:hover {
+            &:after {
+                border-bottom-color: lighten($color, 10%);
+                @include transition(0.2s);
+            }
+        }
+        &.soft_disabled {
+            margin-left: -15px;
+            &:after {
+                margin-left: -13px;
+            }
+        }
+    }
+    &._flat {
+        text-shadow: 0 0 0 transparent;
+        border-bottom: none;
+    }
+    &.trans {
+        background-color: transparent;
+        @include transition(0.2s);
+        &.white {
+            border: 2px solid #fff;
+            color: #fff;
+        }
+        &:hover {
+            background-color: $color;
+        }
+    }
+    &._collapse {
+        @include rad(0);
+        &._left {
+            @include rad(2, "lt", "", "", "lb");
+        }
+        &._right {
+            @include rad(2, "", "rt", "rb", "");
+        }
+        &._selected {
+            background-color: darken($color, 10%);
+        }
+    }
+    &._beige {
+        background-color: #f9ecb6;
+        color: #000;
+        &._reverse {
+            background-color: #212222;
+            color: #e1b64f;
+        }
+    }
+    &._full {
+        display: block;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+    &._small, &._light {
+        font-size: 11px;
+        line-height: 11px;
+        padding: 9px 8px 7px;
+        border-bottom: none;
+        font-weight: normal;
+    }
+    &._transbordered {
+        background-color: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        @include transition(.2s, 0, background-color);
+        &:hover {
+            background-color: $color;
+            border-color: transparent;
+            @include transition(.2s, 0, border);
+        }
+    }
+    &._round {
+        @include rad(25);
+        border: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+// Social
+    &._blue {
+        background: {
+            color: #009cc3;
+        };
+        color: #fff;
+        &:hover, &:focus {
+            background: {
+                color: #008caf;
+            };
+        }
+    }
+
+    // bad
+    &.grey, &.disabled {
+        background: {
+            color: #f1f1f1;
+        };
+        border-color: #dddddd;
+        color: #666b6d;
+        &:hover, &:focus {
+            background-color: #e7e7e7 !important;
+        }
+        &._white {
+            background-color: #fff;
+            border-color: #dddddd;
+            color: #222;
+            &:hover, &:focus {
+                background-color: #e7e7e7;
+            }
+        }
+    }
+// bad
+    &._black {
+        background-color: #222;
+        color: #fff;
+        &:hover, &:focus {
+            background-color: #555;
+        }
+    }
+    &._red {
+        background: {
+            color: #f44848;
+        };
+        border-color: #e34242;
+        color: #fff;
+        &._anim {
+            @include transition(0.2s);
+        }
+        &:hover, &:focus {
+            background: {
+                color:  #e34242;
+            };
+        }
+    }
+
+    &._green {
+        color: #fff;
+        background-color: #8CBA29;
+        border-color: #8CBA29;
+    }
+
+    &._yellow {
+        color: #f44848;
+        background-color: #f7Ebb3;
+        border-color: #e3d1a1;
+    }
+
+    &._orange {
+        color: #fff;
+        background-color: #ffae44;
+        border-color: #ffae44;
+    }
+
+    &._twin {
+        margin-right: 1px !important;
+        @include rad(0);
+        @include rad(3, 'lt', '', '', 'lb');
+        overflow: hidden;
+        + ._twin {
+            @include rad(0);
+            @include rad(3, '', 'rt', 'rb', '');
+        }
+    }
+}

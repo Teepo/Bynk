@@ -1,0 +1,96 @@
+.wall {
+    .brick {
+        display: inline-block;
+        vertical-align: top;
+        .tampon {
+            display: block;
+        }
+    }
+}
+
+.wall {
+    margin-left: -30px;
+    margin-top: -30px;
+    .brick {
+        margin-left: 0;
+        margin-top: 0;
+        width: 50%;
+        // Default style 2 columns
+        > .tampon {
+            margin-top: 30px;
+            margin-left: 30px;
+            border: 2px solid #f0eff0;
+            padding: 20px;
+            @include rad(3);
+            .disp {
+                .img {
+                    img:not([data-src]) {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wall {
+    &._nom {
+        margin-left: 0;
+        margin-top: 0;
+        .brick {
+            > .tampon {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.wall {
+    .brick {
+        &._nob {
+            > .tampon {
+                border: none;
+                padding: 0;
+            }
+        }
+    }
+}
+
+// Skin brick without border
+.wall {
+    &._nob {
+        .brick {
+            > .tampon {
+                border: none;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.wall {
+    &._mini {
+        margin-left: -10px;
+        margin-top: -10px;
+        .brick {
+            .tampon {
+                margin-top: 10px;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.wall {
+    $i: 1;
+    @while $i <= 9
+    {
+        &._d#{$i} {
+            .brick {
+                width: percentage(1.0 / $i) !important;
+                $i: $i + 1;
+            }
+        }
+    }
+}

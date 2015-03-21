@@ -1,0 +1,54 @@
+@import "./mixins.conf.scss";
+
+$color: #4bbce8;
+
+.hidden {
+    display: none;
+}
+
+._r {
+    float: right;
+}
+._l {
+    float: left;
+}
+
+.circle {
+    img {
+        border-radius: 50% !important;
+    }
+}
+
+._center {
+    text-align: center !important;
+}
+
+._block {
+    display: block !important;
+}
+
+._ib {
+    display: inline-block;
+}
+
+.w100 {
+    width: 100% !important;
+}
+
+._upper {
+    text-transform: uppercase;
+}
+
+._relative {
+    position: relative !important;
+}
+
+.spacer {
+    height: 20px;
+}
+
+@import "./display.list.conf.scss";
+@import "./display.wall.conf.scss";
+@import "./display.box.conf.scss";
+@import "./display.grid.conf.scss";
+@import "./display.button.conf.scss";

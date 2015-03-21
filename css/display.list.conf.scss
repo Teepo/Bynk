@@ -1,0 +1,111 @@
+// :skin list:
+// ALIGNEMENT DU TEXTE
+.list {
+    > .row {
+        @include cleaned;
+        margin-top: 30px;
+        border: 2px solid #f0eff0;
+        padding: 20px;
+        @include rad(3);
+        &.first, &:first-child {
+            margin-top: 0;
+        }
+        &.last, &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+}
+
+.list, .wall {
+    &._nob {
+        > .row, > .brick {
+            padding: 0;
+            border: none;
+        }
+    }
+}
+
+.list {
+    &._spaced {
+        > .row {
+            padding: 5px 0;
+        }
+    }
+}
+
+// For ads, and probably helpful in the future.
+.list {
+    .row {
+        &._nob {
+            border: none;
+            padding: 0;
+        }
+        // and his opposite =D
+        &._b {
+            border: 2px solid #f0eff0;
+        }
+    }
+}
+
+.list {
+    &._nom {
+        > .row {
+            margin-top: 0;
+            @include rad(0);
+            border-top-width: 0;
+            &:first-child {
+                @include rad(3, "lt", "rt", "", "");
+                border-top-width: 2px;
+            }
+            &:last-child {
+                @include rad(3, "", "", "rb", "lb");
+            }
+        }
+    }
+}
+
+.list {
+    &._backed {
+        > .row {
+            border: none;
+            background-color: #f0eff0;
+            padding: 15px;
+        }
+    }
+}
+
+.list {
+    &._backed._black {
+        > .row {
+            padding: 20px;
+            background-color: #232324;
+        }
+    }
+}
+
+ul.list, div.list {
+    &._backed._nom {
+        > li.row, > div.row {
+            margin-top: 2px;
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+ul.list, div.list {
+    &.small {
+        > li.row, div.row {
+            small {
+                display: block;
+                time {
+                    float: left;
+                }
+                .dossier {
+                    float: right;
+                }
+            }
+        }
+    }
+}
