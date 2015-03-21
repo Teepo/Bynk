@@ -1,0 +1,24 @@
+RewriteEngine On
+
+# CRON
+RewriteRule ^cron/(.*) cron/$1 [L,QSA]
+
+RewriteRule ^modules/(.*) modules/$1 [L,QSA]
+RewriteRule ^images/(.*) images/$1 [L,QSA]
+RewriteRule ^css/(.*) css/$1 [L,QSA]
+RewriteRule ^lib/(.*) lib/$1 [L,QSA]
+RewriteRule ^js/(.*) js/$1 [L,QSA]
+
+RewriteRule ^views/(.*)/css/(.*) views/$1/css/$2 [L,QSA]
+RewriteRule ^views/(.*)/js/(.*) views/$1/js/$2 [L,QSA]
+
+# API
+RewriteRule ^([^/]*)/([^/]*)/(.*)$ index.php?controller=$1&function=$2&argv=$3 [L,QSA]
+
+# ROOM
+RewriteRule ^(.*) index.php?controller=room&function=init&argv=name/$1 [L,QSA]
+
+# Engine
+RewriteRule ^([^/]*)(.*)/argv/(.*)$ index.php?controller=$1&function=$2&argv=$3 [L,QSA]
+RewriteRule ^([^/]*)(.*)$ index.php?controller=$1&function=$2 [L,QSA]
+RewriteRule ^(.*)$ index.php?controller=$1 [L,QSA]
