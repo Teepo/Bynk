@@ -19,9 +19,12 @@ VIDEO.runner = function() {
                     audio: true
                   },
                   function(localMediaStream) {
+
                       var video = document.querySelector('video');
                       video.src = window.URL.createObjectURL(localMediaStream);
-                      video.play()
+                      video.play();
+
+                      ROOM.init();
                   },
                   function(err) {
                       console.log("The following error occured: " + err);
