@@ -30,5 +30,11 @@ Session.vim
 /doc/www/
 /doc/index.html
 
+# Smarty Cache
+/templates_c/
+
 # .map sass files
 *.css.map
+
+# save only sass/scss
+*.css
