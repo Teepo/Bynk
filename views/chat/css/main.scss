@@ -1,0 +1,62 @@
+// :import:
+@import "../../../css/mixins.conf.scss";
+
+.chat {
+    margin: 20px;
+    .row {
+        p {
+            max-width: 80%;
+            padding: 15px 20px;
+        }
+    }
+}
+
+.chat {
+    .row {
+        .disp {
+            float: right;
+            margin-left: 20px;
+        }
+        p {
+            background-color: #00aedb;
+            float: right;
+            position: relative;
+            @include rad(3);
+            line-height: 18px;
+            &:before, &:after {
+                position: absolute;
+                top: 15px;
+            }
+            &:before {
+                content: '';
+                display: block;
+                @include arrow(5px, 10px, right, #00aedb);
+                right: -5px;
+            }
+        }
+    }
+}
+
+.chat {
+    .row {
+        &._me {
+            .disp {
+                float: left;
+                margin-right: 20px;
+                margin-left: 0;
+            }
+            p {
+                background-color: #586166;
+                float: left;
+                &:before {
+                    display: none;
+                }
+                &:after {
+                    content: '';
+                    @include arrow(5px, 10px, left, #586166);
+                    left: -5px;
+                }
+            }
+        }
+    }
+}

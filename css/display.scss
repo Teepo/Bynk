@@ -2,7 +2,19 @@
 
 $color: #4bbce8;
 
+body {
+    color: #fff;
+    font-family: 'PT Sans';
+    font-size: 15px;
+    font-weight: 400;
+    @include smooth();
+}
+
 .hidden {
+    display: none;
+}
+
+.templates {
     display: none;
 }
 

@@ -12,53 +12,38 @@
   {/if}
 {/if}
 
-{include
-  file="views/header.tpl"
-  id="room"
-  js="/js/tools/peer.js"
-  css="/views/room/css/main.css"}
+{include file="views/header.tpl" id="room"}
 
 {literal}
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    ROOM.init(
-      "{/literal}{$room->id}{literal}",
-      "{/literal}{$room->name}{literal}",
-      "{/literal}{$room->key}{literal}",
-      "{/literal}{$exist}{literal}"
-    );
-  });
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    Lazy.prevent([
+      [null, "/js/tools/peer.js"],
+      [null, "/js/peer.js"],
+      [null, "/views/room/css/main.css"],
+      [null, "/views/chat/css/main.css"],
+      [null, "/views/chat/js/chat.js"],
+      [null, "/views/room/js/room.js", function() {
+
+          ROOM.init(
+            "{/literal}{$room->id}{literal}",
+            "{/literal}{$room->name}{literal}",
+            "{/literal}{$room->key}{literal}",
+            "{/literal}{$exist}{literal}"
+          );
+
+      }]
+    ]);
+});
 </script>
 {/literal}
 
 <div id="main">
 
-  <nav class="_l">
-
-    <ul class="list recent _nob">
-      <li class="row">
-      </li>
-    </ul>
-
-    <ul class="list onlineob">
-    </ul>
-
-    <ul class="list request">
-    </ul>
-
-  </nav>
-
-  <section>
-
-    <form>
-      <textarea></textarea>
-
-      <input type="submit" class="button" />
-    </form>
-  </section>
+  {include file="views/chat/tpl/display.tpl"}
 
 </div>
-
-{include file="views/footer.tpl"}
 
 {/strip}

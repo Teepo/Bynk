@@ -5,6 +5,8 @@ ROOM.name = null;
 ROOM.key = null;
 ROOM.existed_before = null;
 
+ROOM.form = null;
+
 ROOM.init = function(id, name, key, existed_before) {
 
     ROOM.id = id;
@@ -16,6 +18,10 @@ ROOM.init = function(id, name, key, existed_before) {
         ROOM.create();
     else
         ROOM.join();
+
+    CHAT.current = document.querySelector('section.chat');
+    CHAT.list = CHAT.current.querySelector('ul');
+    CHAT.form = CHAT.current.querySelector('form');
 };
 
 ROOM.create = function() {
@@ -24,13 +30,37 @@ ROOM.create = function() {
 };
 
 ROOM.update_key = function() {
+
     XHR.get('/room/set_key/name/' + ROOM.name + '/key/' + ROOM.key);
 };
 
 ROOM.join = function() {
+
     Lazy.prevent(null,'/js/peer.client.js', function() { PEER.client.connect() });
+
+    ROOM.form = document.querySelector('#room form');
+
+    ROOM.form.addEventListener('keyup', ROOM.postMessage);
+};
+
+ROOM.postMessage = function(event) {
+
+    if (event.keyCode == 13)
+    {
+        var msg = event.target.value;
+
+        if (msg.trim() != "") {
+            CHAT.drawMessage(msg);
+            CHAT.form.querySelector('textarea').value = "";
+        }
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
 };
 
 ROOM.disconnect = function(event) {
+
     PEER.current.close();
 };

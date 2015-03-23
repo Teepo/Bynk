@@ -1,5 +1,27 @@
+// :import:
+@import "../../../css/mixins.conf.scss";
+
 #room {
 
-      @import "./nav.conf.scss";
+    @import "./nav.conf.scss";
 
+    background-color: #272c30;
+
+    form {
+        position: absolute;
+        bottom: 0;
+        box-sizing: border-box;
+        padding: 30px;
+        textarea {
+            background-color: #202528;
+            border: 1px solid #303539;
+            height: 80px;
+            color: #fff;
+            padding: 15px;
+            font-size: 15px;
+            @include placeholder {
+                color: #fff;
+            };
+        }
+    }
 }
