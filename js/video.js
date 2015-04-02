@@ -1,10 +1,14 @@
-var VIDEO = function () {};
+var VIDEO = {};
 
-VIDEO.runner = function() {
+VIDEO.run = function() {
 
     var self = this;
 
-    this.init = function() {
+    this.video = null;
+    this.localMediaStream = null
+    this.active = false;
+
+    this.init = function(cb) {
 
         navigator.getUserMedia = ( navigator.getUserMedia ||
                                    navigator.webkitGetUserMedia ||
@@ -20,11 +24,20 @@ VIDEO.runner = function() {
                   },
                   function(localMediaStream) {
 
-                      var video = document.querySelector('video');
-                      video.src = window.URL.createObjectURL(localMediaStream);
-                      video.play();
+                      if (self.active)
+                          return false;
 
-                      ROOM.init();
+                      self.localMediaStream = localMediaStream;
+
+                      self.video = document.createElement('video');
+                      self.video.src = window.webkitURL.createObjectURL(self.localMediaStream);
+                      self.video.play();
+
+                      ROOM.header.appendChild(self.video);
+
+                      self.active = true;
+
+                      cb();
                   },
                   function(err) {
                       console.log("The following error occured: " + err);
@@ -35,4 +48,9 @@ VIDEO.runner = function() {
         }
     };
 
+    this.kill = function() {
+        self.video.remove();
+
+        self.active = false;
+    };
 };

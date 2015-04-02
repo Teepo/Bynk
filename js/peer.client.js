@@ -11,6 +11,7 @@ PEER.client.join = function() {
 
     PEER.current.on('open', PEER.client.onOpen);
     PEER.current.on('connection', PEER.client.onConnection);
+    PEER.current.on('call', PEER.onCall);
 };
 
 PEER.client.onOpen = function(id) {

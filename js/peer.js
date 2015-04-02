@@ -23,6 +23,10 @@ PEER.onData = function(data) {
     PEER.dataDispatcher(data);
 };
 
+PEER.onCall = function(call) {
+    console.log('[PEER] onCall() > ', call);
+};
+
 PEER.dataDispatcher = function(data) {
 
     if (typeof PEER[data.label] != "undefined")

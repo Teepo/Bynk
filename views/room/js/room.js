@@ -6,6 +6,7 @@ ROOM.key = null;
 ROOM.existed_before = null;
 
 ROOM.form = null;
+ROOM.header = null;
 
 ROOM.init = function(id, name, key, existed_before) {
 
@@ -19,12 +20,11 @@ ROOM.init = function(id, name, key, existed_before) {
     else
         ROOM.join();
 
-    CHAT.current = document.querySelector('section.chat');
-    CHAT.list = CHAT.current.querySelector('ul');
-    CHAT.form = CHAT.current.querySelector('form');
-
+    ROOM.header = document.querySelector('#room .chat header');
     ROOM.form = document.querySelector('#room form');
 
+    ROOM.header.querySelector('.button._on').addEventListener('click', CHAT.launchVideo);
+    ROOM.header.querySelector('.button._off').addEventListener('click', CHAT.killVideo);
     ROOM.form.addEventListener('keyup', ROOM.postMessage);
 };
 
