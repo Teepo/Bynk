@@ -3,6 +3,9 @@
 
 .chat {
     margin: 20px;
+    header {
+        margin: -20px;
+    }
     .row {
         p {
             max-width: 80%;

@@ -1,31 +1,27 @@
 // :box right skin:
 // DESIGN THE ILLUSTRATION PICTURE, THE TEXT HEADER AND THE CONTENT BACKGROUND
-    .box, section {
-        margin-top: 35px;
-        &._nofirst {
-            margin-top: 35px !important;
-        }
-        &._nom {
-            header, .header {
-                margin-bottom: 0;
-            }
-        }
-        &:first-child {
-            margin-top: 0px;
-        }
-        .header, header {
-            margin-bottom: 20px;
-            display: block;
-            display: inline-block\9;
-
-            h1, h2, h3, h4, h5, .h2 {
-                color: black;
-            }
-            small {
-                font-family: Georgia;
-                font-style: italic;
-                font-size: 16px;
-                color: #111;
-            }
+.box, section {
+    margin-top: 35px;
+    &._nofirst {
+        margin-top: 35px !important;
+    }
+    &._nom {
+        header, .header {
+            margin-bottom: 0;
         }
     }
+    &:first-child {
+        margin-top: 0px;
+    }
+    .header, header {
+        margin-bottom: 20px;
+        background-color: #363e41;
+        padding: 16px 24px;
+        margin-bottom: 30px;
+        border-top: 1px solid #2f373a;
+
+        .button {
+            margin-top: -30px;
+        }
+    }
+}

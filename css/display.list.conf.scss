@@ -83,9 +83,9 @@
     }
 }
 
-ul.list, div.list {
+.list {
     &._backed._nom {
-        > li.row, > div.row {
+        > .row {
             margin-top: 2px;
             &:first-child {
                 margin-top: 0;
@@ -94,9 +94,9 @@ ul.list, div.list {
     }
 }
 
-ul.list, div.list {
+.list {
     &.small {
-        > li.row, div.row {
+        > .row {
             small {
                 display: block;
                 time {

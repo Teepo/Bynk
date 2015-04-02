@@ -32,7 +32,5 @@ CHAT.drawMessage = function(data) {
     if (data.peerID == PEER.current.id)
         item.classList.add('_me');
 
-    console.log('item', item);
-
     CHAT.list.appendChild(item);
 };

@@ -55,10 +55,19 @@ body {
     position: relative !important;
 }
 
+._table {
+    display: table !important;
+    ._cell {
+        display: table-cell !important;
+        vertical-align: middle !important;
+    }
+}
+
 .spacer {
     height: 20px;
 }
 
+@import "./display.font.conf.scss";
 @import "./display.list.conf.scss";
 @import "./display.wall.conf.scss";
 @import "./display.box.conf.scss";
