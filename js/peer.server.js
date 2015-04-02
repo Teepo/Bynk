@@ -3,54 +3,41 @@ PEER.server = {};
 PEER.server.new = function (key) {
 
     PEER.current = new Peer({
-        id: key,
         key: PEER.API_KEY,
         debug: 3
     });
 
     PEER.current.on('open', PEER.server.onOpen);
     PEER.current.on('connection', PEER.server.onConnection);
-    PEER.current.on('data', PEER.server.onData);
-    PEER.current.on('close', PEER.server.onClose);
-    PEER.current.on('disconnect', PEER.server.onClose);
 };
 
-PEER.server.onOpen = function() {
+PEER.server.onOpen = function(id) {
+
+    console.log('[SERVER] onOpen() > ', id);
+
     ROOM.key = PEER.current.id;
     ROOM.update_key();
 };
 
 // Quand un dude arrive
-PEER.server.onConnection = function(data) {
+PEER.server.onConnection = function(conn) {
 
+    console.log('[SERVER] onConnection() > ', conn);
+
+    // connect to my new client too.
+    PEER.current.connect(conn.peer);
+
+    PEER.connections.push(conn.peer);
+
+    conn.on('data', PEER.onData);
+
+    // send to new client all peers actually connected
     setTimeout(function() {
+        console.log('[SERVER] send data to client ...');
 
-        console.log('[PEER SERVER] onConnection()', data);
-
-        data.send({
+        PEER.broadcast({
             label: 'connectTo',
             ids: PEER.connections
         });
-
-        PEER.connections.push(data.provider.id);
-
-        // connect to my new client too.
-        PEER.current.connect(data.provider.id);
-
-    }, 2000);
-};
-
-PEER.server.onData = function(data) {
-    console.log('[SERVER] onData() > ', data);
-};
-
-PEER.server.onClose = function(data) {
-    console.log('close', data);
-};
-
-PEER.server.broadcast = function(data) {
-
-    for(var c in PEER.current.connections) {
-        PEER.current.connections[c][0].send(data);
-    }
+    }, 1500);
 };

@@ -22,11 +22,15 @@ ROOM.init = function(id, name, key, existed_before) {
     CHAT.current = document.querySelector('section.chat');
     CHAT.list = CHAT.current.querySelector('ul');
     CHAT.form = CHAT.current.querySelector('form');
+
+    ROOM.form = document.querySelector('#room form');
+
+    ROOM.form.addEventListener('keyup', ROOM.postMessage);
 };
 
 ROOM.create = function() {
 
-    Lazy.prevent(null, '/js/peer.server.js', function() { PEER.server.new(ROOM.name); });
+    PEER.server.new(ROOM.name);
 };
 
 ROOM.update_key = function() {
@@ -36,11 +40,7 @@ ROOM.update_key = function() {
 
 ROOM.join = function() {
 
-    Lazy.prevent(null,'/js/peer.client.js', function() { PEER.client.connect() });
-
-    ROOM.form = document.querySelector('#room form');
-
-    ROOM.form.addEventListener('keyup', ROOM.postMessage);
+    PEER.client.join();
 };
 
 ROOM.postMessage = function(event) {
@@ -49,8 +49,9 @@ ROOM.postMessage = function(event) {
     {
         var msg = event.target.value;
 
-        if (msg.trim() != "") {
-            CHAT.drawMessage(msg);
+        if (msg.trim() != "")
+        {
+            CHAT.postMessage(msg);
             CHAT.form.querySelector('textarea').value = "";
         }
     }

@@ -20,8 +20,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     Lazy.prevent([
-      [null, "/js/tools/peer.js"],
+      [null, "http://cdn.peerjs.com/0.3/peer.js"],
       [null, "/js/peer.js"],
+      [null, "/js/peer.server.js"],
+      [null, "/js/peer.client.js"],
       [null, "/views/room/css/main.css"],
       [null, "/views/chat/css/main.css"],
       [null, "/views/chat/js/chat.js"],
