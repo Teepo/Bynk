@@ -20,20 +20,36 @@ CHAT.launchVideo = function(event) {
 
     CHAT.video.init(function() {
 
-        for (var i in PEER.connections)
-        {
-            CHAT.stream[i] = PEER.current.call(PEER.connections[i], CHAT.video.localMediaStream);
-            CHAT.stream[i].on('stream', CHAT._stream);
-        }
+        CHAT.current.classList.add('_small');
+
+        PEER.getConnections(function(conn) {
+            CHAT.stream[conn.peer] = PEER.current.call(conn.peer, CHAT.video.localMediaStream);
+            CHAT.stream[conn.peer].on('stream', CHAT.onStream);
+        });
     });
 };
 
-CHAT._stream = function(stream) {
-    console.log('CHAT _STREAM', stream);
+CHAT.onStream = function(stream) {
+
+    CHAT.current.classList.add('_small');
+
+    var video = document.createElement('video');
+    video.id = 'video';
+    video.src = URL.createObjectURL(stream);
+    video.play();
+    video.volume = 0;
+
+    document.getElementById('videos').appendChild(video);
+
+    PEER.getConnections(function(conn) {
+        CHAT.stream[conn.peer].answer(CHAT.video.localMediaStream);
+    });
 };
 
 CHAT.killVideo = function(event) {
     CHAT.video.kill();
+
+    CHAT.current.classList.remove('_small');
 };
 
 CHAT.postMessage = function(msg) {
@@ -50,8 +66,6 @@ CHAT.postMessage = function(msg) {
 };
 
 CHAT.drawMessage = function(data) {
-
-    console.log('draw', data);
 
     var dom = Template.process('.templates ._chat._message')({
         'message' : data.msg

@@ -1,6 +1,16 @@
 // xhr
 XHR = {};
 
+XHR.urlSerialize = function(obj)
+{
+    var str = [];
+    for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
+
 XHR.ajax = function(url, options, cb) {
 
     var opts = XHR.prepare(options, cb);
@@ -8,7 +18,7 @@ XHR.ajax = function(url, options, cb) {
     opts.method = opts.method || 'GET';
     opts.content = opts.content ||  'text';
     opts.data = opts.params || '';
-    opts.async = opts.async || true;
+    opts.async = /*opts.async || true*/ false;
     opts.contentType = opts.contentType || 'application/x-www-form-urlencoded';
     opts.cb = opts.cb || function() {};
     opts.errno = opts.errno || false; // this option determine if errors are detected in the callback or not
@@ -18,7 +28,7 @@ XHR.ajax = function(url, options, cb) {
         opts.content = 'json';
 
     if (typeof opts.data != 'string')
-        opts.data = URL.serialize(opts.data);
+        opts.data = XHR.urlSerialize(opts.data);
     if (opts.method == 'GET' && opts.data.length > 0)
         url += '?' + opts.data;
 
@@ -52,6 +62,8 @@ XHR.ajax = function(url, options, cb) {
                 else {
                     data = r.responseText || '';
                 }
+
+                opts.cb(data);
             }
             else
                 console.log(url + ' return an http error code' + r.status);

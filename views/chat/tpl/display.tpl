@@ -1,20 +1,13 @@
 {strip}
 
+{if !$room}{/if}
+
 <section class="chat">
-
-  <header>
-    <h2>John Doe</h2>
-
-    <div class="button _off _red _r">KILL WEBCAM</div>
-    <div class="button _on _r">WEBCAM</div>
-  </header>
-
   <ul class="list _nob"></ul>
 
   <form class="w100">
     <textarea class="w100" placeholder="Type your message ..."></textarea>
   </form>
-
 </section>
 
 <div class="templates">

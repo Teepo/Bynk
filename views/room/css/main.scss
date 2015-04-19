@@ -7,21 +7,33 @@
 
     background-color: #272c30;
 
-    form {
+    #loading {
         position: absolute;
+        top: 0;
+        right: 0;
         bottom: 0;
-        box-sizing: border-box;
-        padding: 30px 0;
-        textarea {
-            background-color: #202528;
-            border: 1px solid #303539;
-            height: 80px;
-            color: #fff;
-            padding: 15px;
-            font-size: 15px;
-            @include placeholder {
-                color: #fff;
-            };
+        left: 0;
+        background-color: #333;
+        svg {
+            position: absolute;
+            top: calc(50% - ((120px / 2) / 2));
+            left: calc(50% - ((120px / 2) / 2));
+        }
+    }
+
+    #videos {
+        width: 70%;
+        position: relative;
+        video {
+            width: 100%;
+        }
+        #video {
+            -webkit-filter: sepia();
+            width: 200px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            border: 3px solid #4bbce8;
         }
     }
 }

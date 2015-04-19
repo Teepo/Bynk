@@ -30,10 +30,11 @@ VIDEO.run = function() {
                       self.localMediaStream = localMediaStream;
 
                       self.video = document.createElement('video');
-                      self.video.src = window.webkitURL.createObjectURL(self.localMediaStream);
+                      self.video.src = URL.createObjectURL(self.localMediaStream);
                       self.video.play();
+                      self.video.volume = 0;
 
-                      ROOM.header.appendChild(self.video);
+                      document.getElementById('videos').appendChild(self.video);
 
                       self.active = true;
 

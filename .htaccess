@@ -12,11 +12,15 @@ RewriteRule ^js/(.*) js/$1 [L,QSA]
 RewriteRule ^views/(.*)/css/(.*) views/$1/css/$2 [L,QSA]
 RewriteRule ^views/(.*)/js/(.*) views/$1/js/$2 [L,QSA]
 
+# MEDIA
+
 # API
-RewriteRule ^([^/]*)/([^/]*)/(.*)$ index.php?controller=$1&function=$2&argv=$3 [L,QSA]
+RewriteRule ^([^/]*)/([^/]*)/(.*)$ index.php?controller=$1&function=$2&argv=$3 [L]
 
 # ROOM
-RewriteRule ^(.*) index.php?controller=room&function=init&argv=name/$1 [L,QSA]
+#RewriteRule ^(.*) index.php?controller=room&function=init&argv=name/$1 [L,QSA]
+#RewriteRule ^(.*) index.php?controller=room&function=init&argv=url/$1 [L,QSA]
+RewriteRule ^(.*) index.php?/room/init/argv/url/$1 [L]
 
 # Engine
 RewriteRule ^([^/]*)(.*)/argv/(.*)$ index.php?controller=$1&function=$2&argv=$3 [L,QSA]

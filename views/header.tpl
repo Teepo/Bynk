@@ -15,13 +15,12 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
     {* TOOLS *}
+
     <script type="text/javascript" src="/js/tools/memoize.js"></script>
     <script type="text/javascript" src="/js/tools/template.js"></script>
     <script type="text/javascript" src="/js/tools/lazy.js"></script>
-    <script type="text/javascript" src="/js/tools/url.js"></script>
     <script type="text/javascript" src="/js/tools/xhr.js"></script>
     <script type="text/javascript" src="/js/tools/event.js"></script>
-    <script type="text/javascript" src="/js/tools/lives.js"></script>
 
     <script type="text/javascript" src="/js/conf.js"></script>
 	<script type="text/javascript" src="/js/bynk.js"></script>

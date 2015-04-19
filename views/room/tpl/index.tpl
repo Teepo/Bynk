@@ -12,6 +12,12 @@
   {/if}
 {/if}
 
+{if !isset($open)}
+  {if isset($root_tab.open)}
+    {assign var="open" value=$root_tab.open}
+  {/if}
+{/if}
+
 {include file="views/header.tpl" id="room"}
 
 {literal}
@@ -20,7 +26,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     Lazy.prevent([
-      [null, "http://cdn.peerjs.com/0.3/peer.js"],
+      [null, "/js/tools/peer.js"],
       [null, "/js/peer.js"],
       [null, "/js/peer.server.js"],
       [null, "/js/peer.client.js"],
@@ -31,9 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
           ROOM.init(
             "{/literal}{$room->id}{literal}",
-            "{/literal}{$room->name}{literal}",
+            "{/literal}{$room->url}{literal}",
             "{/literal}{$room->key}{literal}",
-            "{/literal}{$exist}{literal}"
+            "{/literal}{$exist}{literal}",
+            "{/literal}{$room->open}{literal}"
           );
 
       }]
@@ -42,9 +49,26 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 {/literal}
 
-<div id="main">
+<div id="main" class="loading">
 
-  {include file="views/chat/tpl/display.tpl"}
+  <section>
+
+    <header>
+      <h2>
+        {$room->title|ucfirst|default:$room->url|ucfirst}
+        <i class="icon icon-pen"></i>
+      </h2>
+
+      <div class="button _off _red _r">KILL WEBCAM</div>
+      <div class="button _on _r">WEBCAM</div>
+    </header>
+
+    <section id="videos" class="_l"></section>
+
+    {include file="views/chat/tpl/display.tpl"}
+  </section>
+
+  {include file="views/room/tpl/inc/loading.tpl"}
 
 </div>
 

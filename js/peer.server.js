@@ -1,14 +1,14 @@
 PEER.server = {};
 
-PEER.server.new = function (key) {
+PEER.server.new = function () {
 
     PEER.current = new Peer({
-        key: PEER.API_KEY,
-        debug: 3
+        key: PEER.API_KEY
     });
 
     PEER.current.on('open', PEER.server.onOpen);
     PEER.current.on('connection', PEER.server.onConnection);
+    PEER.current.on('call', PEER.onCall);
 };
 
 PEER.server.onOpen = function(id) {
@@ -16,7 +16,22 @@ PEER.server.onOpen = function(id) {
     console.log('[SERVER] onOpen() > ', id);
 
     ROOM.key = PEER.current.id;
-    ROOM.update_key();
+
+    PEER.hoster = true;
+
+    ROOM.update_key(function() {
+
+        ROOM.open_the_door();
+    });
+
+    window.onbeforeunload = function() {
+        PEER.current.disconnect();
+        PEER.current.destroy();
+
+        ROOM.close_the_door();
+
+        //PEER.sleep(1000);
+    };
 };
 
 // Quand un dude arrive
@@ -31,13 +46,10 @@ PEER.server.onConnection = function(conn) {
 
     conn.on('data', PEER.onData);
 
-    // send to new client all peers actually connected
-    setTimeout(function() {
-        console.log('[SERVER] send data to client ...');
+    conn.on('close', function() {
 
-        PEER.broadcast({
-            label: 'connectTo',
-            ids: PEER.connections
-        });
-    }, 1500);
+        ROOM.removeVideo();
+
+        console.log(conn.peer , 'left the chat.');
+    })
 };

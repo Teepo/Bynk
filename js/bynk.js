@@ -5,11 +5,19 @@ BYNK.version = 1;
 BYNK.VIDEO = null;
 
 BYNK.init = function() {
-
-    LIVES.init();
-
-    //var video = new VIDEO.runner
-    //video.init();
 };
 
 document.addEventListener('DOMContentLoaded', BYNK.init);
+
+function each (items, func)
+{
+    if (func == null || typeof func == "undefined")
+    {
+        console.error("[TOOLS] You run each() without callback.");
+        return false;
+    }
+
+    [].forEach.call(items, function(item) {
+        func(item)
+    });
+}

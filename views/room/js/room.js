@@ -1,26 +1,35 @@
 var ROOM = {}
 
 ROOM.id = null;
-ROOM.name = null;
+ROOM.url = null;
+ROOM.title = null;
 ROOM.key = null;
 ROOM.existed_before = null;
+ROOM.open = null;
+
+ROOM.tester = null;
+ROOM.tester_timing = 1000;
+ROOM.tester_limit = 3;
 
 ROOM.form = null;
 ROOM.header = null;
 
-ROOM.init = function(id, name, key, existed_before) {
+ROOM.init = function(id, url, key, existed_before, open) {
+
+    CHAT.init();
 
     ROOM.id = id;
-    ROOM.name = name;
+    ROOM.url = url;
     ROOM.key = key;
     ROOM.existed_before = parseInt(existed_before);
+    ROOM.open = parseInt(open);
 
-    if (ROOM.existed_before == 0)
+    if (ROOM.existed_before == 0 && ROOM.open == 0)
         ROOM.create();
     else
         ROOM.join();
 
-    ROOM.header = document.querySelector('#room .chat header');
+    ROOM.header = document.querySelector('#room header');
     ROOM.form = document.querySelector('#room form');
 
     ROOM.header.querySelector('.button._on').addEventListener('click', CHAT.launchVideo);
@@ -30,17 +39,91 @@ ROOM.init = function(id, name, key, existed_before) {
 
 ROOM.create = function() {
 
-    PEER.server.new(ROOM.name);
+    PEER.server.new();
 };
 
-ROOM.update_key = function() {
+ROOM.update_key = function(callback) {
 
-    XHR.get('/room/set_key/name/' + ROOM.name + '/key/' + ROOM.key);
+    XHR.get('/api/room/set_key/argv/url/' + ROOM.url + '/key/' + ROOM.key);
+
+    if (typeof callback == "function")
+        callback();
 };
 
 ROOM.join = function() {
 
-    PEER.client.join();
+    // on wait un peu, sinon on crée la room
+    if (ROOM.open == 0)
+    {
+        var i = 0;
+        ROOM.tester = setInterval(function() {
+
+                          var room = ROOM.get(function(response) {
+
+                                         console.log(response.room.open, parseInt(response.room.open));
+
+                                         if (parseInt(response.room.open) == 1)
+                                         {
+                                             ROOM.key = response.room.key;
+
+                                             clearInterval(ROOM.tester)
+
+                                             PEER.client.join()
+                                         }
+                                     });
+
+                          if (i >= ROOM.tester_limit)
+                          {
+                              PEER.server.new();
+                              clearInterval(ROOM.tester);
+                          }
+
+                          i++;
+
+                      }, ROOM.tester_timing);
+    }
+    else
+        PEER.client.join()
+};
+
+ROOM.open_the_door = function() {
+    if (document.getElementById('loading') != null)
+        document.getElementById('loading').remove();
+
+    ROOM.open = 1;
+};
+
+ROOM.get = function(callback) {
+
+    XHR.get('/api/room/get/argv/id/' + ROOM.id, function(response) {
+
+        if (typeof callback == "function")
+            callback(JSON.parse(response));
+    });
+};
+
+ROOM.isOpen = function(callback) {
+
+    XHR.get('/api/room/isOpen/argv/id/' + ROOM.id, function(response) {
+
+        if (typeof callback == "function")
+            callback(JSON.parse(response));
+    });
+};
+
+ROOM.close_the_door = function() {
+
+    if (PEER.hoster)
+        XHR.get('/api/room/close/argv/id/' + ROOM.id);
+};
+
+ROOM.removeVideo = function() {
+
+    CHAT.current.classList.remove('_small');
+
+    each(document.getElementById('videos').querySelectorAll('*'), function(item) {
+        item.remove();
+    });
 };
 
 ROOM.postMessage = function(event) {

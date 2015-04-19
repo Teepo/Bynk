@@ -1,44 +1,74 @@
 <?php
 
-class RoomController extends Engine
+class RoomController extends Model
 {
-    public function init()
+    /**
+     * @param string $url
+     *
+     * - view = index
+     * - viewer = tpl|json
+     */
+    public function init($url)
     {
-        $name = self::$argv['name'];
+        $room = new Room(NULL, $url);
 
-        $room = new Room($name);
-
-        if (!$exist = Room::exist($room))
-            $room = Room::create($name);
+        if (($exist = Room::exist($room)) === FALSE && (Room::isOpen($room)) === FALSE)
+            $room = Room::create($url);
 
         View::assign('room', $room);
         View::assign('exist', ($exist) ? 1 : 0);
-
-		View::display('index.tpl');
     }
 
     /**
-     * @param string $name
+     * @param string $url
      * @param string $key
      *
      */
-    public function create($name)
+    public function create($url)
     {
-        Room::create($name);
+        Room::create($url);
+    }
+
+    /**
+     * @param string $url
+     * @param string $key
+     *
+     * - viewer = json
+     */
+    public function set_key($url, $key)
+    {
+        $room = new Room(NULL, $url);
+
+        $room->key = $key;
+
+        Room::set_key($room);
     }
 
     /**
      * @param uint $id
-     * @param string $key
      *
      */
-    public function set_key()
+    public function isOpen($id)
     {
-        $room = new Room(self::$argv['name']);
+        View::assign('open', ROOM::isOpen(new Room($id)));
+    }
 
-        $room->key = self::$argv['key'];
+    /**
+     * @param uint $id
+     *
+     */
+    public function get($id)
+    {
+        View::assign('room', new Room($id));
+    }
 
-        Room::set_key($room);
+    /**
+     * @param uint $id
+     *
+     */
+    public function close($id)
+    {
+        ROOM::close($id);
     }
 }
 
