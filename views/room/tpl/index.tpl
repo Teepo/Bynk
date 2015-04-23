@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
       [null, "/views/room/js/room.js", function() {
 
           ROOM.init(
-            "{/literal}{$room->id}{literal}",
-            "{/literal}{$room->url}{literal}",
-            "{/literal}{$room->key}{literal}",
+            "{/literal}{$room.id}{literal}",
+            "{/literal}{$room.url}{literal}",
+            "{/literal}{$room.token}{literal}",
             "{/literal}{$exist}{literal}",
-            "{/literal}{$room->open}{literal}"
+            "{/literal}{$room.open}{literal}"
           );
 
       }]

@@ -8,6 +8,9 @@
 	<title>Bynk</title>
 
 	<link rel="stylesheet" media="screen" href="/css/reset.css">
+	<link rel="stylesheet" media="screen" href="/css/form.css">
+	<link rel="stylesheet" media="screen" href="/css/icon.css">
+	<link rel="stylesheet" media="screen" href="/css/typography.css">
 	<link rel="stylesheet" media="screen" href="/css/display.css">
 
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,300" rel="stylesheet" type="text/css">
@@ -16,15 +19,16 @@
 
     {* TOOLS *}
 
+    <script type="text/javascript" src="/js/conf.js"></script>
+	<script type="text/javascript" src="/js/bynk.js"></script>
+	<script type="text/javascript" src="/js/video.js"></script>
+
     <script type="text/javascript" src="/js/tools/memoize.js"></script>
     <script type="text/javascript" src="/js/tools/template.js"></script>
     <script type="text/javascript" src="/js/tools/lazy.js"></script>
     <script type="text/javascript" src="/js/tools/xhr.js"></script>
     <script type="text/javascript" src="/js/tools/event.js"></script>
-
-    <script type="text/javascript" src="/js/conf.js"></script>
-	<script type="text/javascript" src="/js/bynk.js"></script>
-	<script type="text/javascript" src="/js/video.js"></script>
+    <script type="text/javascript" src="/js/tools/form.js"></script>
 
 	{if isset($css)}
 	  <link rel="stylesheet" media="screen" href="{$css}">

@@ -8,15 +8,8 @@
         box-sizing: border-box;
         padding: 30px 0;
         textarea {
-            background-color: #202528;
-            border: 1px solid #303539;
             height: 80px;
-            color: #fff;
             padding: 15px;
-            font-size: 15px;
-            @include placeholder {
-                color: #fff;
-            };
         }
     }
 }
