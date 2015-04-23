@@ -49,18 +49,37 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 {/literal}
 
-<div id="main" class="loading">
+<div id="main">
 
-  <section>
+  <aside id="rooms">
+    <section>
+      <header>
+        <form action="/api/room/search/" autocomplete id="form-search-room">
+          <input type="search" name="search" />
+          <input type="submit" class="button" value="" />
+        </form>
+      </header>
+      <ul class="list handler _relative _nob"></ul>
+    </section>
+  </aside>
+
+  <section id="content">
 
     <header>
-      <h2>
-        {$room->title|ucfirst|default:$room->url|ucfirst}
-        <i class="icon icon-pen"></i>
+      <h2 class="_ib">
+        {$room.title|ucfirst|default:$room.url|ucfirst}
+        <div class="icon edit _r">
+          <i></i>
+        </div>
       </h2>
 
-      <div class="button _off _red _r">KILL WEBCAM</div>
-      <div class="button _on _r">WEBCAM</div>
+      <div class="buttons">
+        <div class="button _on">&nbsp;</div>
+        <div class="button _off _red">&nbsp;</div>
+        <div class="icon settings">
+          <i></i>
+        </div>
+      </div>
     </header>
 
     <section id="videos" class="_l"></section>

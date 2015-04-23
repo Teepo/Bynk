@@ -1,0 +1,49 @@
+$link-color: #6d767b;
+$link-hover-color: #fff;
+$link-selected-color: $link-hover-color;
+
+nav {
+
+    padding-left: 15%;
+
+    ul {
+        li {
+            display: inline-block;
+            margin: 0 20px;
+        }
+    }
+
+    ul {
+        li {
+            a {
+                color: $link-color;
+                font-weight: 700;
+                text-transform: uppercase;
+                padding: 24px 0;
+                display: inline-block;
+                &:hover {
+                    color: $link-hover-color;
+                }
+            }
+        }
+    }
+
+    ul {
+        li {
+            &.selected {
+                a {
+                    color: $link-selected-color;
+                    position: relative;
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        height: 3px;
+                        background-color: $color-base;
+                    }
+                }
+            }
+        }
+    }
+}

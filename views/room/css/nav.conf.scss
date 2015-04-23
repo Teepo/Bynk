@@ -2,3 +2,16 @@ nav {
     background-color: #363e41;
     height: 60px;
 }
+
+.button._on {
+    background-image: url(svg('camera'));
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 11px 48px;
+}
+.button._off {
+    background-image: url(svg('phone-hang-up'));
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 11px 48px;
+}
