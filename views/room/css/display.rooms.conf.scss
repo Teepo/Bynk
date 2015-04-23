@@ -6,7 +6,7 @@ $row-status-border-size: 2;
 
 #rooms {
 
-    width: 20%;
+    width: $aside-size + px;
     height: 100%;
     float: left;
     position: relative;

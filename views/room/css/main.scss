@@ -3,6 +3,8 @@
 
 #room {
 
+    $aside-size: 385;
+
     @import "./nav.conf.scss";
 
     background-color: #272c30;
@@ -21,7 +23,7 @@
     }
 
     #content {
-        width: 80%;
+        width: calc(100% - #{$aside-size}px);
         float: left;
         margin-top: 0;
     }
