@@ -21,4 +21,19 @@ EVENT.trigger = function(el, name) {
         evt.initEvent(name, true, true);
         return !el.dispatchEvent(evt);
     }
-}
+};
+
+EVENT.add = function (items, name, func) {
+
+    if (items != null)
+    {
+        if (items.nodeType == Node.ELEMENT_NODE)
+            items.addEventListener(name, func);
+        else
+        {
+            each(items, function(item) {
+                item.addEventListener(name, func);
+            });
+        }
+    }
+};
