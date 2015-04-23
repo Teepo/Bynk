@@ -93,6 +93,31 @@ class Room {
 
         SQL::query($q);
     }
+
+    /**
+     * @param string $name
+     *
+     */
+    public static function search($name)
+    {
+        $q = 'SELECT
+                  id, url, title, token, open,
+                  MATCH(url, title) AGAINST (' . SQL::quote($name) . ') AS relevance
+              FROM room
+              WHERE
+                  MATCH(url, title) AGAINST (' . SQL::quote($name) . ')
+                    OR url LIKE ' . SQL::quote('%' . $name . '%') . '
+                    OR title LIKE ' . SQL::quote('%' . $name . '%') . '
+              ORDER BY relevance DESC
+              LIMIT 20';
+
+        $res = SQL::query($q);
+
+        if ($res === FALSE)
+            return Errno::DB_ERROR;
+
+        return $res->fetchAll();
+    }
 }
 
 ?>

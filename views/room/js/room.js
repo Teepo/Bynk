@@ -35,6 +35,38 @@ ROOM.init = function(id, url, key, existed_before, open) {
     ROOM.header.querySelector('.button._on').addEventListener('click', CHAT.launchVideo);
     ROOM.header.querySelector('.button._off').addEventListener('click', CHAT.killVideo);
     ROOM.form.addEventListener('keyup', ROOM.postMessage);
+
+    document.addEventListener('autocomplete', ROOM.searching);
+};
+
+ROOM.generate = function(id, url, title, token, open) {
+
+    ROOM.id = id;
+    ROOM.url = url;
+    ROOM.title = title
+    ROOM.token = token;
+    ROOM.open = parseInt(open);
+};
+
+ROOM.searching = function() {
+
+    EVENT.add(ROOM.aside.querySelectorAll('.row'), 'click', ROOM.choose);
+};
+
+ROOM.choose = function(event) {
+    console.log('CHOOSE', event);
+
+    var row = closest(event.target, '.row');
+
+    var room = {};
+    room.id = row.getAttribute('data-id');
+    room.open = 0;
+
+    console.log('LA ROOM QUE JE VEUX JOIN', room);
+
+    ROOM.join(room, function() {
+        ROOM.content.querySelector('h2').textContent = ROOM.url;
+    });
 };
 
 ROOM.create = function() {

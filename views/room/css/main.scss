@@ -1,11 +1,39 @@
 // :import:
-@import "../../../css/mixins.conf.scss";
+@import "../../../css/_var.conf.scss";
 
 #room {
 
     @import "./nav.conf.scss";
 
     background-color: #272c30;
+
+    @import "./display.rooms.conf.scss";
+
+    #main {
+        header {
+            position: relative;
+            .buttons {
+                position: absolute;
+                top: 0;
+                right: 20px;
+            }
+        }
+    }
+
+    #content {
+        width: 80%;
+        float: left;
+        margin-top: 0;
+    }
+
+    #content {
+        header {
+            .icon {
+                vertical-align: text-top;
+                margin-left: 15px;
+            }
+        }
+    }
 
     #loading {
         position: absolute;

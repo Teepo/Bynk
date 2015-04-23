@@ -54,6 +54,38 @@ class RoomController extends Model
     {
         ROOM::close($id);
     }
+
+    /***************************************************************************
+     *                                VIEWS
+     ***************************************************************************/
+
+    /**
+     * @param string $url
+     *
+     * - view = index
+     * - viewer = tpl|json
+     */
+    public function init($url)
+    {
+        $room = Room::get(NULL, $url);
+
+        if (($exist = Room::exist($room)) === FALSE && (Room::isOpen($room)) === FALSE)
+            $room = Room::create($url);
+
+        View::assign('room', $room);
+        View::assign('exist', ($exist) ? 1 : 0);
+    }
+
+    /**
+     * @param string $name
+     *
+     * - view = search/display
+     * - viewer = tpl|json
+     */
+    public function search($name)
+    {
+        View::assign('rooms', ROOM::search($name));
+    }
 }
 
 ?>
