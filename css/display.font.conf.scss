@@ -1,3 +1,5 @@
+@import "./_var.conf.scss";
+
 h1, h2, h3, h4, h5, .title {
     color: #fff;
     display: block;
@@ -5,19 +7,18 @@ h1, h2, h3, h4, h5, .title {
 }
 
 .title {
-    font-size: 22px;
+    font-size: $font-size-big;
 }
 
 p {
-    line-height: 1.5em;
+    line-height: $font-line_height-base;
 }
-
 
 strong {
     font-weight: 700;
 }
 
 small {
-    font-size: 12px;
+    font-size: $font-size-small;
     color: #a1a1a1;
 }
