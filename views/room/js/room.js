@@ -3,37 +3,42 @@ var ROOM = {}
 ROOM.id = null;
 ROOM.url = null;
 ROOM.title = null;
-ROOM.key = null;
+ROOM.token = null;
 ROOM.existed_before = null;
 ROOM.open = null;
 
 ROOM.tester = null;
 ROOM.tester_timing = 1000;
-ROOM.tester_limit = 3;
+ROOM.tester_limit = 2;
 
 ROOM.form = null;
 ROOM.header = null;
+ROOM.content = null;
+ROOM.aside = null;
 
-ROOM.init = function(id, url, key, existed_before, open) {
+ROOM.init = function(id, url, token, existed_before, open) {
 
     CHAT.init();
 
-    ROOM.id = id;
-    ROOM.url = url;
-    ROOM.key = key;
-    ROOM.existed_before = parseInt(existed_before);
-    ROOM.open = parseInt(open);
+    ROOM.generate(id, url, token, open);
 
     if (ROOM.existed_before == 0 && ROOM.open == 0)
         ROOM.create();
     else
-        ROOM.join();
+    {
+        ROOM.join({
+            id, url, token, existed_before, open
+        });
+    }
 
     ROOM.header = document.querySelector('#room header');
-    ROOM.form = document.querySelector('#room form');
+    ROOM.content = document.getElementById('content');
+    ROOM.form = ROOM.content.querySelector('form');
+    ROOM.aside = document.getElementById('rooms');
 
-    ROOM.header.querySelector('.button._on').addEventListener('click', CHAT.launchVideo);
-    ROOM.header.querySelector('.button._off').addEventListener('click', CHAT.killVideo);
+    ROOM.content.querySelector('.button._on').addEventListener('click', CHAT.launchVideo);
+    ROOM.content.querySelector('.button._off').addEventListener('click', CHAT.killVideo);
+
     ROOM.form.addEventListener('keyup', ROOM.postMessage);
 
     document.addEventListener('autocomplete', ROOM.searching);
@@ -74,33 +79,44 @@ ROOM.create = function() {
     PEER.server.new();
 };
 
-ROOM.update_key = function(callback) {
+ROOM.update_token = function(callback) {
 
-    XHR.get('/api/room/set_key/argv/url/' + ROOM.url + '/key/' + ROOM.key);
-
-    if (typeof callback == "function")
-        callback();
+    XHR.get('/api/room/set_token/argv/url/' + ROOM.url + '/token/' + ROOM.token, function() {
+        if (typeof callback == "function")
+            callback();
+    });
 };
 
-ROOM.join = function() {
+ROOM.join = function(room, callback) {
+
+    var _room = room;
 
     // on wait un peu, sinon on crée la room
-    if (ROOM.open == 0)
+    if (room.open == 0)
     {
         var i = 0;
         ROOM.tester = setInterval(function() {
 
-                          var room = ROOM.get(function(response) {
-
-                                         console.log(response.room.open, parseInt(response.room.open));
+                          var room = ROOM.get(_room, function(response) {
 
                                          if (parseInt(response.room.open) == 1)
                                          {
-                                             ROOM.key = response.room.key;
+
+                                             ROOM.generate(
+                                                 response.room.id,
+                                                 response.room.url,
+                                                 response.room.title,
+                                                 response.room.token,
+                                                 response.room.open
+                                             );
 
                                              clearInterval(ROOM.tester)
 
-                                             PEER.client.join()
+                                             PEER.client.join(ROOM);
+
+                                             window.console.log('apres');
+                                             if (typeof callback == "function")
+                                                 callback();
                                          }
                                      });
 
@@ -108,6 +124,9 @@ ROOM.join = function() {
                           {
                               PEER.server.new();
                               clearInterval(ROOM.tester);
+
+                              if (typeof callback == "function")
+                                  callback();
                           }
 
                           i++;
@@ -115,7 +134,13 @@ ROOM.join = function() {
                       }, ROOM.tester_timing);
     }
     else
-        PEER.client.join()
+    {
+        window.console.log('direct');
+        PEER.client.join(room);
+
+        if (typeof callback == "function")
+            callback();
+    }
 };
 
 ROOM.open_the_door = function() {
@@ -125,9 +150,9 @@ ROOM.open_the_door = function() {
     ROOM.open = 1;
 };
 
-ROOM.get = function(callback) {
+ROOM.get = function(room, callback) {
 
-    XHR.get('/api/room/get/argv/id/' + ROOM.id, function(response) {
+    XHR.get('/api/room/get/argv/id/' + room.id, function(response) {
 
         if (typeof callback == "function")
             callback(JSON.parse(response));

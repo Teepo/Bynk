@@ -15,12 +15,11 @@ PEER.server.onOpen = function(id) {
 
     console.log('[SERVER] onOpen() > ', id);
 
-    ROOM.key = PEER.current.id;
+    ROOM.token = PEER.current.id;
 
     PEER.hoster = true;
 
-    ROOM.update_key(function() {
-
+    ROOM.update_token(function() {
         ROOM.open_the_door();
     });
 
@@ -49,6 +48,8 @@ PEER.server.onConnection = function(conn) {
     conn.on('close', function() {
 
         ROOM.removeVideo();
+
+        // @todo Give server mode at only one other client
 
         console.log(conn.peer , 'left the chat.');
     })

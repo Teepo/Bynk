@@ -2,13 +2,13 @@ PEER.client = {};
 
 PEER.client.connected = false;
 
-PEER.client.join = function() {
+PEER.client.join = function(room) {
 
     PEER.current = new Peer({
         key: PEER.API_KEY
     });
 
-    var conn = PEER.current.connect(ROOM.key);
+    var conn = PEER.current.connect(room.token);
 
     PEER.current.on('open', PEER.client.onOpen);
     PEER.current.on('connection', PEER.client.onConnection);
