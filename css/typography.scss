@@ -1,0 +1,14 @@
+// :import:
+@import "./_var.conf.scss";
+
+a {
+    color: $font-color-base;
+    font-size: $font-size-base;
+    text-decoration: none;
+    font-weight: normal;
+    outline: none;
+    &:hover {
+        color: $color-base;
+        text-decoration: none;
+    }
+}
