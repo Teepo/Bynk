@@ -1,0 +1,42 @@
+// :import:
+@import "./_var.conf.scss";
+
+.icon {
+    cursor: pointer;
+    display: inline-block;
+    > i {
+        display: inline-block;
+        background-repeat: no-repeat;
+    }
+}
+
+.icon {
+    &.settings {
+        > i {
+            background-image: url(svg('settings'));
+            width: 30px;
+            height: 30px;
+        }
+        &:hover {
+            > i {
+                background-image: url(svg('settings', $color-base));
+            }
+        }
+    }
+}
+
+.icon {
+    &.edit {
+        > i {
+            background-image: url(svg('edit'));
+            background-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+        &:hover {
+            > i {
+                background-image: url(svg('edit', $color-base));
+            }
+        }
+    }
+}
