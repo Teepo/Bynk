@@ -1,0 +1,19 @@
+@import "./mixins.conf.scss";
+
+// -- COLOR
+$color-base : #4bbce8;
+$color-error   : #f44848;
+$color-warning : #ffae44;
+$color-success : #41bf68;
+
+// -- FONTS
+$font-color-base: #fff;
+$font-size-base: 15px;
+$font-line_height-base: 1.5em;
+
+$font-size-small: 12px;
+
+$font-size-big: 22px;
+
+// -- MEDIA
+$media-svg: '/api/media/svg/argv/name/';
