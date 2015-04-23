@@ -2,26 +2,10 @@
 
 class RoomController extends Model
 {
-    /**
-     * @param string $url
-     *
-     * - view = index
-     * - viewer = tpl|json
-     */
-    public function init($url)
-    {
-        $room = new Room(NULL, $url);
-
-        if (($exist = Room::exist($room)) === FALSE && (Room::isOpen($room)) === FALSE)
-            $room = Room::create($url);
-
-        View::assign('room', $room);
-        View::assign('exist', ($exist) ? 1 : 0);
-    }
 
     /**
      * @param string $url
-     * @param string $key
+     * @param string $token
      *
      */
     public function create($url)
@@ -31,17 +15,17 @@ class RoomController extends Model
 
     /**
      * @param string $url
-     * @param string $key
+     * @param string $token
      *
      * - viewer = json
      */
-    public function set_key($url, $key)
+    public function set_token($url, $token)
     {
-        $room = new Room(NULL, $url);
+        $room = Room::get(NULL, $url);
 
-        $room->key = $key;
+        $room['token'] = $token;
 
-        Room::set_key($room);
+        Room::set_token($room);
     }
 
     /**
@@ -50,7 +34,7 @@ class RoomController extends Model
      */
     public function isOpen($id)
     {
-        View::assign('open', ROOM::isOpen(new Room($id)));
+        View::assign('open', ROOM::isOpen(ROOM::get($id)));
     }
 
     /**
@@ -59,7 +43,7 @@ class RoomController extends Model
      */
     public function get($id)
     {
-        View::assign('room', new Room($id));
+        View::assign('room', ROOM::get($id));
     }
 
     /**

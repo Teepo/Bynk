@@ -2,38 +2,8 @@
 
 class Room {
 
-    public $id;
-    public $url;
-    public $title;
-    public $key;
-
     const ROOM_CLOSED = 0;
     const ROOM_OPENED = 1;
-
-    /**
-     * @param uint $id
-     * @param string $url
-     *
-     */
-    public function __construct($id = NULL, $url = NULL)
-    {
-        $this->id = $id;
-        $this->url = $url;
-
-        $room = self::get($this);
-
-        if ($room === FALSE)
-            return $this;
-
-        if (isset($room->id))
-            $this->id = $room->id;
-        if (isset($room->key))
-            $this->key = $room->key;
-        if (isset($room->open))
-            $this->open = $room->open;
-
-        return $this;
-    }
 
     /**
      * @param Room $room
@@ -42,7 +12,7 @@ class Room {
      */
     public static function exist($room)
     {
-        return (isset($room->id) && !empty($room->id)) ? TRUE : FALSE;
+        return (isset($room['id']) && !empty($room['id'])) ? TRUE : FALSE;
     }
 
     /**
@@ -52,24 +22,25 @@ class Room {
      */
     public static function isOpen($room)
     {
-        return (isset($room->open) && !empty($room->open)) ? TRUE : FALSE;
+        return (isset($room['open']) && !empty($room['open'])) ? TRUE : FALSE;
     }
 
     /**
-     * @param Room $room
+     * @param uint $id
+     * @param string $url
      *
      * @return Room
      */
-    public static function get($room)
+    public static function get($id = NULL, $url = NULL)
     {
         $where = [];
 
-        if (isset($room->id))
-            $where[] = 'id = ' . (int)$room->id;
-        if (isset($room->url))
-            $where[] = 'url = ' . (int)$room->url;
+        if (isset($id))
+            $where[] = 'id = ' . (int)$id;
+        if (isset($url))
+            $where[] = 'url = ' . SQL::quote($url);
 
-        $q = 'SELECT id, url, title, `key`, open
+        $q = 'SELECT id, url, title, token, open
               FROM room
               WHERE ' . implode(' AND ', $where) . '
               LIMIT 1';
@@ -78,7 +49,7 @@ class Room {
         if ($res == FALSE)
             return Errno::DB_ERROR;
 
-        return $res->fetch(PDO::FETCH_OBJ);
+        return $res->fetch();
     }
 
     /**
@@ -92,19 +63,19 @@ class Room {
 
         $res = SQL::query($q);
 
-        return self::get(new Room(NULL, $url));
+        return self::get(NULL, $url);
     }
 
     /**
      * @param Room $room
      *
      */
-    public static function set_key($room)
+    public static function set_token($room)
     {
         $q = 'UPDATE room
-              SET `key` = ' . SQL::quote($room->key) . ',
+              SET token = ' . SQL::quote($room['token']) . ',
                    open = ' . self::ROOM_OPENED . '
-              WHERE id = ' . $room->id;
+              WHERE id = ' . $room['id'];
 
         SQL::query($q);
     }
