@@ -66,10 +66,15 @@ ROOM.choose = function(event) {
     room.id = row.getAttribute('data-id');
     room.open = 0;
 
-    console.log('LA ROOM QUE JE VEUX JOIN', room);
-
     ROOM.join(room, function() {
+
+        // update room title
         ROOM.content.querySelector('h2').textContent = ROOM.url;
+
+        // erase all messages.
+        each(CHAT.list.querySelectorAll('.row'), function(item) {
+            item.remove();
+        })
     });
 };
 
