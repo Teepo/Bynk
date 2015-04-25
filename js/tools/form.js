@@ -11,6 +11,10 @@
 
     form.autocomplete = function(event) {
 
+        // dont trigger on arrow key
+        if (event.keyCode >= 37 && event.keyCode <= 40)
+            return false;
+
         var input = event.target;
 
         if (input.value.length < AUTOCOMPLETE_MIN_CHAR)
