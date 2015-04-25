@@ -1,8 +1,12 @@
+@import "./../../../css/mixins.conf.scss";
+
 $list-spacing: 35;
 
 $row-size: 85;
 $row-status-size: 8;
 $row-status-border-size: 2;
+
+$media-size: 60;
 
 #rooms {
 
@@ -66,6 +70,10 @@ $row-status-border-size: 2;
             width: 100%;
             padding: 12px 0;
             margin-top: 0;
+            cursor: pointer;
+            p {
+                @include transition(.2s, 0, color);
+            }
             &:before, &:after {
                 content: '';
                 position: absolute;
@@ -94,8 +102,28 @@ $row-status-border-size: 2;
     }
 
     .list {
+        .row {
+            &:hover {
+                p {
+                    color: $color-base;
+                }
+
+                .img {
+                    background-color: $color-base;
+                }
+            }
+        }
+    }
+
+    .list {
         .disp {
             width: 25%;
+            .img {
+                width: $media-size + px;
+                padding: 2px;
+                border-radius: 50%;
+                @include transition(.2s, 0, background-color);
+            }
             &:before {
                 content: '';
                 position: absolute;

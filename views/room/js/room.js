@@ -59,7 +59,6 @@ ROOM.searching = function() {
 };
 
 ROOM.choose = function(event) {
-    console.log('CHOOSE', event);
 
     var row = closest(event.target, '.row');
 
@@ -114,7 +113,6 @@ ROOM.join = function(room, callback) {
 
                                              PEER.client.join(ROOM);
 
-                                             window.console.log('apres');
                                              if (typeof callback == "function")
                                                  callback();
                                          }
@@ -135,7 +133,6 @@ ROOM.join = function(room, callback) {
     }
     else
     {
-        window.console.log('direct');
         PEER.client.join(room);
 
         if (typeof callback == "function")
