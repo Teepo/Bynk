@@ -15,7 +15,7 @@ PEER.server.onOpen = function(id) {
 
     console.log('[SERVER] onOpen() > ', id);
 
-    ROOM.token = PEER.current.id;
+    ROOM.info.token = PEER.current.id;
 
     PEER.hoster = true;
 

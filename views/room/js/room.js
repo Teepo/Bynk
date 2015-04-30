@@ -54,6 +54,29 @@ ROOM.searching = function() {
     EVENT.add(ROOM.aside.querySelectorAll('.row'), 'click', ROOM.choose);
 };
 
+ROOM.video_per_line = 3;
+ROOM.fitVideo = function() {
+
+    var videos = document.getElementById('videos').querySelectorAll('video');
+
+    each(videos, function(video) {
+        video.style.width = "33%";
+    });
+
+    // last line doesn't complete, resize it
+    var modulo = videos.length % 3;
+    if (modulo > 0)
+    {
+        var x = 1;
+        for (var i = videos.length; i > (videos.length - modulo); i--)
+        {
+            videos[i - 1].style.width = (100 / modulo) + "%";
+
+            x++;
+        }
+    }
+};
+
 ROOM.choose = function(event) {
 
     var row = closest(event.target, '.row');
@@ -114,7 +137,7 @@ ROOM.create = function() {
 
 ROOM.update_token = function(callback) {
 
-    XHR.get('/api/room/set_token/argv/url/' + ROOM.infourl + '/token/' + ROOM.info.token, function() {
+    XHR.get('/api/room/set_token/argv/url/' + ROOM.info.url + '/token/' + ROOM.info.token, function() {
         if (typeof callback == "function")
             callback();
     });
@@ -172,7 +195,7 @@ ROOM.open_the_door = function() {
     if (document.getElementById('loading') != null)
         document.getElementById('loading').remove();
 
-    ROOM.open = 1;
+    ROOM.info.open = 1;
 };
 
 ROOM.get = function(room, callback) {

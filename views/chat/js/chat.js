@@ -34,12 +34,13 @@ CHAT.onStream = function(stream) {
     CHAT.current.classList.add('_small');
 
     var video = document.createElement('video');
-    video.id = 'video';
     video.src = URL.createObjectURL(stream);
     video.play();
     video.volume = 0;
 
     document.getElementById('videos').appendChild(video);
+
+    ROOM.fitVideo();
 
     PEER.getConnections(function(conn) {
         CHAT.stream[conn.peer].answer(CHAT.video.localMediaStream);
