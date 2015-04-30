@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
           ROOM.init(
             "{/literal}{$room.id}{literal}",
             "{/literal}{$room.url}{literal}",
+            "{/literal}{$room.title}{literal}",
             "{/literal}{$room.token}{literal}",
             "{/literal}{$exist}{literal}",
             "{/literal}{$room.open}{literal}"
@@ -66,9 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
   <section id="content">
 
     <header>
-      <h2 class="_ib">
+      <h2 class="_ib _relative">
         {$room.title|ucfirst|default:$room.url|ucfirst}
-        <div class="icon edit _r">
+        <div class="icon edit">
           <i></i>
         </div>
       </h2>
@@ -84,7 +85,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <section id="videos" class="_l"></section>
 
+    <div class="templates edit_room_title">
+      {htmlcomment}
+      <form action="/api/room/set_title/" method="post">
+        <input type="hidden" name="id" value="<%=data.id %>" />
+        <input type="text" name="title" value="<%=data.title %>" />
+      </form>
+      {/htmlcomment}
+    </div>
+
+    <div class="templates display_room_title">
+      {htmlcomment}
+
+      <%=data.title %>
+
+      <div class="icon edit">
+        <i></i>
+      </div>
+      {/htmlcomment}
+    </div>
+
     {include file="views/chat/tpl/display.tpl"}
+
   </section>
 
   {include file="views/room/tpl/inc/loading.tpl"}

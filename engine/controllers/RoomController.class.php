@@ -30,6 +30,23 @@ class RoomController extends Model
 
     /**
      * @param uint $id
+     * @param string $title
+     *
+     * - viewer = json
+     */
+    public function set_title($id, $title)
+    {
+        $room = Room::get($id);
+
+        $room['title'] = $title;
+
+        Room::set_title($room);
+
+        View::assign('room', $room);
+    }
+
+    /**
+     * @param uint $id
      *
      */
     public function isOpen($id)

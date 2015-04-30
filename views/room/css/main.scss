@@ -31,8 +31,9 @@
     #content {
         header {
             .icon {
-                vertical-align: text-top;
-                margin-left: 15px;
+                position: absolute;
+                top: 0;
+                right: -40px;
             }
         }
     }

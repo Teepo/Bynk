@@ -81,6 +81,19 @@ class Room {
     }
 
     /**
+     * @param Room $room
+     *
+     */
+    public static function set_title($room)
+    {
+        $q = 'UPDATE room
+              SET title = ' . SQL::quote($room['title']) . '
+              WHERE id = ' . $room['id'];
+
+        SQL::query($q);
+    }
+
+    /**
      * @param uint $id
      *
      */

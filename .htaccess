@@ -8,6 +8,7 @@ RewriteRule ^images/(.*) images/$1 [L,QSA]
 RewriteRule ^css/(.*) css/$1 [L,QSA]
 RewriteRule ^lib/(.*) lib/$1 [L,QSA]
 RewriteRule ^js/(.*) js/$1 [L,QSA]
+RewriteRule ^demo/(.*) demo/$1 [L,QSA]
 
 RewriteRule ^views/(.*)/css/(.*) views/$1/css/$2 [L,QSA]
 RewriteRule ^views/(.*)/js/(.*) views/$1/js/$2 [L,QSA]
